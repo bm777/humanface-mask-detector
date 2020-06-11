@@ -28,6 +28,7 @@ args = vars(parser.parse_args())
 init_lr= 1e-4 # because we'll apply a learning rate decay schedule
 epochs = 20
 bs     = 32
+lb = LabelBinarizer()
 
 def pre_process():
 	
@@ -56,7 +57,7 @@ def pre_process():
 
 def one_hot(labels):
 	# one hot encoging on the labels
-	lb = LabelBinarizer()
+	
 	labels = lb.fit_transform(labels)
 	return to_categorical(labels) # labels
 
@@ -104,11 +105,13 @@ def fitModel(model):
 		validation_data=(testX, testY),
 		validation_steps=len(testX) // bs,
 		epochs=epochs)
+	print("FIT already done")
+	return history
 
 def evaluate():
 	pred = model.predict(testX, batch_size=bs)
 	pred = np.argmax(pred, axis=1)
-	print(classification_report(testY.argmax(axis=1), pred, taget_names=lb.classes_))
+	print(classification_report(testY.argmax(axis=1), pred, target_names=lb.classes_))
 
 def saveModel(model):
 	model.save(args["model"], save_format="h5")
@@ -132,8 +135,7 @@ if __name__ == '__main__':
 	#tensorflow.debugging.set_log_device_placement(True)
 	gpus = tensorflow.config.experimental.list_physical_devices('GPU')
 	try:
-		tensorflow.config.experimental.set_virtual_device_configuration(
-			gpus[0],
+		tensorflow.config.experimental.set_virtual_device_configuration(gpus[0],
 		[tensorflow.config.experimental.VirtualDeviceConfiguration(memory_limit=2048)])
 		print(" - [x]: Loading images ... ->")
 		data, labels = pre_process()
