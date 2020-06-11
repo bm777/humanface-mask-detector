@@ -7,9 +7,11 @@ from tensorflow.keras.optimizers import Adam
 from tensorflow.keras.applications.mobilenet_v2 import preprocess_input
 from tensorflow.keras.preprocessing.image import img_to_array, load_img
 from tensorflow.keras.utils import to_categorical
+from sklearn.preprocessing import LabelBinarizer
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import classification_report
 from imutils import paths
+import tensorflow
 
 import matplotlib.pyplot as plt
 import numpy as np
@@ -52,13 +54,13 @@ def pre_process():
 
 	return data, labels
 
-def one-hot(labels):
+def one_hot(labels):
 	# one hot encoging on the labels
-	lb = LAbelBinarizer()
+	lb = LabelBinarizer()
 	labels = lb.fit_transform(labels)
 	return to_categorical(labels) # labels
 
-def data_augmentation(data, labels):
+def data_augmentation():
 	
 	return ImageDataGenerator(
 			rotation_range=20,
@@ -92,14 +94,13 @@ def hModel():
 
 def compileModel(model):
 	opt = Adam(lr=init_lr, decay=init_lr/epochs)
-	model = model.compile(loss="binary_crosscentropy", optimizer=opt, metrics=["accuracy"])
+	model.compile(loss="binary_crossentropy", optimizer=opt, metrics=["accuracy"])
 
-	return model
 
 def fitModel(model):
 	history = model.fit(
 		aug.flow(trainX, trainY, batch_size=bs),
-		step_per_epoch=len(trainX) // bs,
+		steps_per_epoch=len(trainX) // bs,
 		validation_data=(testX, testY),
 		validation_steps=len(testX) // bs,
 		epochs=epochs)
@@ -127,4 +128,44 @@ def History(history):
 	plt.savefig(args["plot"])
 
 
-print(" - [x]: loading images ... ->")
+if __name__ == '__main__':
+	#tensorflow.debugging.set_log_device_placement(True)
+	gpus = tensorflow.config.experimental.list_physical_devices('GPU')
+	try:
+		tensorflow.config.experimental.set_virtual_device_configuration(
+			gpus[0],
+		[tensorflow.config.experimental.VirtualDeviceConfiguration(memory_limit=2048)])
+		print(" - [x]: Loading images ... ->")
+		data, labels = pre_process()
+
+		print(" - [x]: One hot on labels ... ->")
+		labels = one_hot(labels)
+
+		print(" - [x]: Split dataset ... ->")
+		(trainX, testX, trainY, testY) = train_test_split(data, labels, 
+			test_size=0.2, stratify=labels, random_state=42)
+
+		print(" - [x]: Data augmentation ... ->")
+		aug = data_augmentation()
+
+		print(" - [x]: Prepare the MobileNetV2 for fine-tuning ... ->")
+		model = hModel()
+
+		print(" - [x]: Compiling the model ... ->")
+		compileModel(model)
+
+		print(" - [x]: Train the model ... ->")
+		history = fitModel(model)
+
+		print(" - [x]: evaluate model ... ->")
+		evaluate()
+
+		print(" - [x]: Store the model on disk... ->")
+		saveModel(model)
+
+		print(" - [x]: Plot the training loss and accuracy ... ->")
+		History(history)
+	except RuntimeError as e:
+		print(e)
+	
+		
