@@ -134,6 +134,8 @@ def History(history):
 if __name__ == '__main__':
 	#tensorflow.debugging.set_log_device_placement(True)
 	gpus = tensorflow.config.experimental.list_physical_devices('GPU')
+	if len(gpus) == 0:
+		gpus = tensorflow.config.experimental.list_physical_devices('CPU')
 	try:
 		tensorflow.config.experimental.set_virtual_device_configuration(gpus[0],
 		[tensorflow.config.experimental.VirtualDeviceConfiguration(memory_limit=2048)])
