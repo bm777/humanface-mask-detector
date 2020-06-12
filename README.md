@@ -31,7 +31,7 @@ cd humanface-mask-detector
  In this section, we load face mask dataset from disk and then train a model using tensorflow.keras 2.1.0.
  To perform your accuracy, you can change your hyperparameters(batch size and number of epoch learning rate)
  ```
- python fm_train.py --dataset dataset
+ python3 fm_train.py --dataset dataset
  ```
 ![Training phase](best-accu.png)
  - History ploted
