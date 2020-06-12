@@ -1,5 +1,5 @@
 ### How does human face mask detector work?
-Picture soon
+ - ![explanaition](screen.png)
 
  - Result of human face detector
  ![https://d3fa68hw0m2vcc.cloudfront.net/563/195539828.jpeg](mask-ouput.png)
