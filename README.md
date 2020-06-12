@@ -1,4 +1,8 @@
 ### How does human face mask detector work?
+Picture soon
+
+ - Result of human face detector
+ ![](mask-output.png)
 ![https://image.freepik.com/free-photo/african-american-young-volunteer-woman-wearing-face-mask-outdoors-coronavirus-quarantine-global-pandemic_151355-5475.jpg](mask_screenshot.png)
 
 ![https://minds-africa.org/wp-content/uploads/2019/11/sellasie-1038x890.jpg](withoutmask_screenshot.png)
@@ -31,4 +35,5 @@ cd humanface-mask-detector
  ```
 ![Training phase](best-accu.png)
  - History ploted
+
 ![History of training and validation stage](ploted.png)
