@@ -54,7 +54,7 @@ def process(model, net):
 			#pass the face through the model to determince if the face has a mask or not
 			(mask, withoutMask) = model.predict(face)[0]
 
-			label = "Mak" if mask > withoutMask else "No Mask"
+			label = "Mask" if mask > withoutMask else "No Mask"
 			color = (0, 255, 0) if label == "Mask" else (0, 0, 255)
 
 			label = "{}: {:.2f}%".format(label, max(mask, withoutMask)*100)
