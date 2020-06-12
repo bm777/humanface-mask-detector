@@ -14,6 +14,7 @@
 ### Clone the project
 ```
 $git clone https://github.com/bm777/humanface-mask-detector.git
+cd humanface-mask-detector
 ```
 
 ### How to implement your own face mask detector
@@ -30,4 +31,4 @@ $git clone https://github.com/bm777/humanface-mask-detector.git
  ```
 ![Training phase](best-accu.png)
  - History ploted
-:[History of training and validation stage](ploted.png)
+![History of training and validation stage](ploted.png)
