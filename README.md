@@ -43,5 +43,5 @@ cd humanface-mask-detector
  - part of code from [Adrian Rosebrock](https://www.pyimagesearch.com/2020/05/04/covid-19-face-mask-detector-with-opencv-keras-tensorflow-and-deep-learning/)
  - part of fine tuning from this : [LINK](https://www.pyimagesearch.com/2019/06/03/fine-tuning-with-keras-and-deep-learning/)
  - part of face Landmark to augment database: ALready done by Adrian Rosebrock
- - pretrained model used: MobileNetV2 [ImageNet weights]
+ - pretrained model used: MobileNetV2 [ImageNet weights](http://www.image-net.org/)
 
