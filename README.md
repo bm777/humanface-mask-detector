@@ -34,6 +34,8 @@ cd humanface-mask-detector
  To perform your accuracy, you can change your hyperparameters(batch size and number of epoch learning rate)
  ```
  python3 fm_train.py --dataset dataset
+ # After training you can test your classifier by:
+ python3 detect_mask_picture.py --image examples/other.jpg
  ```
 ![Training phase](best-accu.png)
  - History ploted
