@@ -74,7 +74,7 @@ if __name__ == '__main__':
 	gpus = tensorflow.config.experimental.list_physical_devices('GPU')
 	print("------------"+str(len(tensorflow.config.experimental.list_physical_devices('CPU'))))
 	if len(gpus) == 0:
-		gpus = tensorflow.config.experimental.list_physical_devices('CPU')
+		gpu = tensorflow.config.experimental.list_physical_devices('CPU')
 	try:
 		tensorflow.config.experimental.set_virtual_device_configuration(gpus[0],
 		[tensorflow.config.experimental.VirtualDeviceConfiguration(memory_limit=2048)])
