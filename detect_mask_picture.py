@@ -10,9 +10,9 @@ import os
 parser = argparse.ArgumentParser()
 parser.add_argument("-i", "--image", required=True, help="Path to image")
 parser.add_argument("-f", "--face", type=str, default="simple_face_detector")
-parser.add_argument("-m", "--model", type=str, default="mask_detector.model", 
+parser.add_argument("-m", "--model", type=str, default="mask_detector.model",
 	help="Path to trained face mask detector model")
-parser.add_argument("-c", "--confidence", type=float, default=0.5, 
+parser.add_argument("-c", "--confidence", type=float, default=0.5,
 	help="Minimum probability to filter weak detection")
 args = vars(parser.parse_args())
 
@@ -45,6 +45,7 @@ def process(model, net):
 
 			# extract face ROI, convert it to RGB channel
 			face = image[startY:endY, startX:endX]
+			face = cv2.flip(face, 1)
 			face = cv2.cvtColor(face, cv2.COLOR_BGR2RGB)
 			face = cv2.resize(face, (224,224))
 			face = img_to_array(face)
@@ -86,5 +87,3 @@ if __name__ == '__main__':
 		process(model,  net)
 	except Exception as e:
 		raise e
-
-		

@@ -65,7 +65,7 @@ def data_augmentation():
 	
 	return ImageDataGenerator(
 			rotation_range=20,
-			zoom_range=0.15,
+			zoom_range=0.15,••••••
 			width_shift_range=0.2,
 			height_shift_range=0.2,
 			shear_range=0.15,
